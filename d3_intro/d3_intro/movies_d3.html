@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Carregando dados de arquivo</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+
+<body>
+    <div id="chart"></div>
+    <div id="anotherChart"></div>
+    <script type="text/javascript">
+       
+       
+
+        function render(data, comparator){
+
+            d3.select("#chart")
+            .selectAll("div.h-bar")
+                .data(data)
+            .enter().append("div")
+            .attr("class", "h-bar")
+            .style("width", function(d){
+                   return (d.Worldwide_Gross_M)/3+"px"; 
+                })
+
+            .style("background-color", "orange")
+                .append("span")
+                .text(function(d){return (d.Worldwide_Gross_M);})
+                .style("color", "white");
+                
+            if(comparator)
+                d3.select("body")
+                    .selectAll("div.h-bar")
+                    .sort(comparator);
+        }
+
+        ////////////////////////////////////////////////////////
+
+        function renderGraf2(data, comparator){
+
+            d3.select("#anotherChart")
+            .selectAll("div.h2-bar")
+                .data(data)
+            .enter().append("div")
+            .attr("class", "h2-bar")
+            .style("width", function(d){
+                   return (d.Budget_M)+"px"; 
+                })
+
+            .style("background-color", "pink")
+            .style("margin-top", "2px")
+                .append("span")
+                .text(function(d){return (d.Budget_M);})
+                .style("color", "white");
+                
+            if(comparator)
+                d3.select("body")
+                    .selectAll("div.h2-bar")
+                    .sort(comparator);
+        }
+        
+
+        let comparePorWorldwide_Gross_M = function(a, b){
+            return b.Worldwide_Gross_M - a.Worldwide_Gross_M;
+        }
+
+        let comparePorBudget_M = function (a, b){
+            return b.Budget_M - a.Budget_M;
+        }
+
+
+        //////////////////////////////////////////////////////
+
+
+
+        // Titulo Bilheteria
+        d3.select("#chart")
+        .append("p").attr("id", "texto")
+        .style("margin-top", "5px")
+        .style("width", "50px")
+        .text("Bilheteria");
+
+        // Renderização do gráfico Worldwide_Gross_M
+        d3.json("data/movies.json").then(function(json){
+            render(json, comparePorWorldwide_Gross_M);
+        });
+
+         d3.select("#anotherChart")
+        .append("p").attr("id", "texto")
+        .style("margin-top", "5px")
+        .style("width", "50px")
+        .text("Orçamento");
+
+
+        d3.json("data/movies.json").then(function(json){
+            renderGraf2(json, comparePorBudget_M);
+        });
+
+    </script>
+</body>
+</html>
