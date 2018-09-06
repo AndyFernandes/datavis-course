@@ -10,6 +10,7 @@
 <body>
     <div id="chart"></div>
     <div id="anotherChart"></div>
+    <div id="anotherChart2"></div>
     <script type="text/javascript">
        
        
@@ -61,6 +62,32 @@
                     .sort(comparator);
         }
         
+        //////////////////////////////////////////////////////
+
+        function renderGraf3(data, comparator){
+
+            d3.select("#anotherChart2")
+            .selectAll("div.h3-bar")
+                .data(data)
+            .enter().append("div")
+            .attr("class", "h3-bar")
+            .style("width", function(d){
+                   return (d.Budget_M)+"px"; 
+                })
+
+            .style("background-color", "purple")
+            .style("margin-top", "2px")
+                .append("span")
+                .text(function(d){return (d.Budget_M);})
+                .style("color", "white");
+                
+            if(comparator)
+                d3.select("body")
+                    .selectAll("div.h3-bar")
+                    .sort(comparator);
+        }
+        
+        ///////////////////////////////////////////////////
 
         let comparePorWorldwide_Gross_M = function(a, b){
             return b.Worldwide_Gross_M - a.Worldwide_Gross_M;
@@ -71,8 +98,11 @@
         }
 
 
-        //////////////////////////////////////////////////////
+        let comparePorLucro = function(a, b){
+            return (b.Worldwide_Gross_M/b.Budget_M) - (a.Worldwide_Gross_M/a.Budget_M);
+        }
 
+        //////////////////////////////////////////////////////
 
 
         // Titulo Bilheteria
@@ -87,6 +117,7 @@
             render(json, comparePorWorldwide_Gross_M);
         });
 
+        // Titulo Orçamento
          d3.select("#anotherChart")
         .append("p").attr("id", "texto")
         .style("margin-top", "5px")
@@ -94,8 +125,22 @@
         .text("Orçamento");
 
 
+        // Renderização do gráfico Budget_M
         d3.json("data/movies.json").then(function(json){
             renderGraf2(json, comparePorBudget_M);
+        });
+
+        // Titulo Lucro
+         d3.select("#anotherChart2")
+        .append("p").attr("id", "texto")
+        .style("margin-top", "5px")
+        .style("width", "50px")
+        .text("Lucro");
+
+
+        // Renderização do gráfico Lucro
+        d3.json("data/movies.json").then(function(json){
+            renderGraf3(json, comparePorLucro);
         });
 
     </script>
