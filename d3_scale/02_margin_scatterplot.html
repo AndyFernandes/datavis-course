@@ -27,20 +27,100 @@
             .append("g")
                 .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-    let dataset = [
-            [5, 20], [480, 90], [250, 50],
-            [100, 33], [330, 95], [410, 12], 
-            [475, 44], [25, 67], [85, 21],
-            [220, 88] ]; 
+    // let dataset = [
+    //         [5, 20], [480, 90], [250, 50],
+    //         [100, 33], [330, 95], [410, 12], 
+    //         [475, 44], [25, 67], [85, 21],
+    //         [220, 88], [650, 100]]; 
 
+    let dataset = [];
+    let numDataPoints = 50;
+    let xRange = Math.random() * 1000;
+    let yRange = Math.random() * 1000;
+
+    for (let i = 0; i < numDataPoints; i++){
+        let newNumber1 = Math.floor(Math.random() * xRange);
+        let newNumber2 = Math.floor(Math.random() * yRange);
+        dataset.push([newNumber1, newNumber2]);
+    }
+    
     // Agora todo o código pode ignorar as margens. 
     // Copie aqui o código de criação das escalas do arquivo
     // anterior (vai continuar o mesmo)
+     let xScale = d3.scaleLinear()
+                    .domain([0, d3.max(dataset, function(d){
+                                return d[0];
+                    })])
+                    .range([0,w]);
+    
+    let yScale = d3.scaleLinear()
+                    .domain([0,d3.max(dataset, function(d){
+                                return d[1];
+                    })])
+                    .range([h,0]); 
 
+    let xAxis = d3.axisBottom()
+                    .scale(xScale)   
+                    // .ticks(5);
+                    .tickValues([0, 150, 300, 450, 600]);
+
+    let yAxis = d3.axisLeft()
+                    .scale(yScale)   
+                    .ticks(4);
     // Depois adicione os elementos círculos
+    svg.selectAll("circle")
+        .data(dataset)
+        .enter()
+        .append("circle")
+        .attr("cx", function(d){
+            return xScale(d[0]);
+        })
+        .attr("cy", function(d){
+            return yScale(d[1]);
+        })
+        .attr("r", 5);
 
     // Depois adicione os labels
-        
+    // svg.selectAll("text")
+    //     .data(dataset)
+    //     .enter()
+    //     .append("text")
+    //     .attr("x", function(d){
+    //         return xScale(d[0]);
+    //     })
+    //     .attr("y", function(d){
+    //         return yScale(d[1]);
+    //     })
+    //     .attr("font-family", "sans-serif")
+    //     .attr("font-size", "11px")
+    //     .attr("fill", "green")
+    //     .text(function(d){
+    //         return d[0] + "," + d[1];
+    //     });
+
+    svg.append("g")
+        .attr("transform", "translate(0," + h + ")")
+        .call(xAxis);
+    
+    svg.append("g")
+        .call(yAxis);
+    
+    svg.append("text")
+        .attr("transform", "translate(" + (w/2) + "," + (h + margin.bottom) + ")")
+        .style("text-anchor", "middle")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .text("Eixo X");        
+
+    svg.append("text")
+        .attr("transform", "rotate(-90)")
+        .attr("y", 0 - margin.left)
+        .attr("x", 0 - (h/2))
+        .attr("dy", "1em")
+        .style("text-anchor", "middle")
+        .attr("font-family", "sans-serif")
+        .attr("font-size", "12px")
+        .text("Eixo Y");  
 </script>
 </body>
 </html>
