@@ -8,82 +8,71 @@
 </head>
 
 <body>
-    <div id="chart"></div>
-    <div id="anotherChart"></div>
-    <div id="anotherChart2"></div>
+    <div id="chart1"></div>
+    <div id="chart2"></div>
+    <div id="chart3"></div>
+    <div id="chart4"></div>
     <script type="text/javascript">
        
-       
+       function render(id, data, comparator, atributo, cor, proporcao){
 
-        function render(data, comparator){
-
-            d3.select("#chart")
-            .selectAll("div.h-bar")
-                .data(data)
-            .enter().append("div")
-            .attr("class", "h-bar")
-            .style("width", function(d){
-                   return (d.Worldwide_Gross_M)/3+"px"; 
+            d3.select("#chart"+id)
+            .selectAll("div.h-bar"+id)
+            .data(data)
+            	.enter().append("div")
+            	.attr("class", "h-bar"+id)
+            	.style("width", function(d){
+                   return ((d[atributo])*proporcao) + "px"; 
                 })
-
-            .style("background-color", "orange")
-                .append("span")
-                .text(function(d){return (d.Worldwide_Gross_M);})
+            .style("background-color", cor)
+            .style("margin-top", "2px")
+            .append("span")
+                .text(function(d){
+                	return (d["Film"] + " = " + d[atributo]);
+                })
+                .style("font-size", "12px")
                 .style("color", "white");
                 
             if(comparator)
-                d3.select("body")
-                    .selectAll("div.h-bar")
+                d3.select("#chart"+id)
+                    .selectAll("div.h-bar"+id)
                     .sort(comparator);
         }
 
         ////////////////////////////////////////////////////////
-
-        function renderGraf2(data, comparator){
-
-            d3.select("#anotherChart")
-            .selectAll("div.h2-bar")
-                .data(data)
-            .enter().append("div")
-            .attr("class", "h2-bar")
-            .style("width", function(d){
-                   return (d.Budget_M)+"px"; 
-                })
-
-            .style("background-color", "pink")
-            .style("margin-top", "2px")
-                .append("span")
-                .text(function(d){return (d.Budget_M);})
-                .style("color", "white");
-                
-            if(comparator)
-                d3.select("body")
-                    .selectAll("div.h2-bar")
-                    .sort(comparator);
+        
+        function titulo(texto, id){
+        	d3.select("#chart"+id)
+	        .append("p").attr("id", "titulo")
+	        .style("margin-top", "5px")
+	        .style("width", "50px")
+	        .text(texto);
         }
         
-        //////////////////////////////////////////////////////
+        // //////////////////////////////////////////////////////
 
-        function renderGraf3(data, comparator){
+        function renderGrafico3(id, data, comparator, cor, proporcao){
 
-            d3.select("#anotherChart2")
-            .selectAll("div.h3-bar")
-                .data(data)
-            .enter().append("div")
-            .attr("class", "h3-bar")
-            .style("width", function(d){
-                   return (d.Budget_M)+"px"; 
+           d3.select("#chart3")
+            .selectAll("div.h-bar3")
+            .data(data)
+            	.enter().append("div")
+            	.attr("class", "h-bar3")
+            	.style("width", function(d){
+                   return (d.Worldwide_Gross_M - d.Budget_M)*proporcao+ "px"; 
                 })
-
-            .style("background-color", "purple")
+            .style("background-color", cor)
             .style("margin-top", "2px")
-                .append("span")
-                .text(function(d){return (d.Budget_M);})
+            .append("span")
+                .text(function(d){
+                	return (d["Film"] + " = " + (d.Worldwide_Gross_M - d.Budget_M));
+                })
+                .style("font-size", "12px")
                 .style("color", "white");
                 
             if(comparator)
-                d3.select("body")
-                    .selectAll("div.h3-bar")
+                d3.select("#chart3")
+                    .selectAll("div.h-bar3")
                     .sort(comparator);
         }
         
@@ -99,48 +88,34 @@
 
 
         let comparePorLucro = function(a, b){
-            return (b.Worldwide_Gross_M/b.Budget_M) - (a.Worldwide_Gross_M/a.Budget_M);
+            return (b.Worldwide_Gross_M - b.Budget_M) - (a.Worldwide_Gross_M - a.Budget_M);
         }
 
         //////////////////////////////////////////////////////
 
 
         // Titulo Bilheteria
-        d3.select("#chart")
-        .append("p").attr("id", "texto")
-        .style("margin-top", "5px")
-        .style("width", "50px")
-        .text("Bilheteria");
+        titulo("Bilheteria", 1);
 
-        // Renderização do gráfico Worldwide_Gross_M
+        // Renderização do gráfico Worldwide_Gross_M [Bilheteria]
         d3.json("data/movies.json").then(function(json){
-            render(json, comparePorWorldwide_Gross_M);
+            render(1, json, comparePorWorldwide_Gross_M, "Worldwide_Gross_M", "orange", 0.3);
         });
 
-        // Titulo Orçamento
-         d3.select("#anotherChart")
-        .append("p").attr("id", "texto")
-        .style("margin-top", "5px")
-        .style("width", "50px")
-        .text("Orçamento");
+        //Titulo Orçamento
+        titulo("Orçamento", 2);
 
-
-        // Renderização do gráfico Budget_M
+        // Renderização do gráfico Budget_M [Orçamento]
         d3.json("data/movies.json").then(function(json){
-            renderGraf2(json, comparePorBudget_M);
+            render(2, json, comparePorBudget_M, "Budget_M", "pink", 1);
         });
 
         // Titulo Lucro
-         d3.select("#anotherChart2")
-        .append("p").attr("id", "texto")
-        .style("margin-top", "5px")
-        .style("width", "50px")
-        .text("Lucro");
+        titulo("Lucro", 3);
 
-
-        // Renderização do gráfico Lucro
+        // // Renderização do gráfico Lucro
         d3.json("data/movies.json").then(function(json){
-            renderGraf3(json, comparePorLucro);
+            renderGrafico3(3, json, comparePorLucro, "black", 0.3);
         });
 
     </script>
