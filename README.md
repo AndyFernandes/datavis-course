@@ -16,4 +16,28 @@
 
 ---
 
+## Aula 9
+
+[01_single_select.html](d3_intro/01_single_select.html)<br>
+[02_multi_select.html](d3_intro/02_multi_select)<br>
+[03_iterate_select.html](d3_intro/03_iterate_select.html)<br>
+[04_data_array_start.html](d3_intro/04_data_array_start)<br>
+[05_data_object_start.html](d3_intro/05_data_object_start.html)<br>
+[06_util_array.html](d3_intro/06_util_array.html)<br>
+[07_load_data.html](d3_intro/07_load_data.html)<br>
+[08_sort_data.html](d3_intro/08_sort_data.html)<br>
+[data_array_solution.html](d3_intro/data_array_solution.html)<br>
+[data_object_solution.html](d3_intro/data_object_solution.html)<br>
+[movies_d3.html](d3_intro/movies_d3.html)<br>
+
+---
+
+## Aula 11
+
+[01_scatterplot.html](d3_scale/01_scatterplot.html)<br>
+[02_margin_scatterplot.html](d3_scale/02_margin_scatterplot.html)<br>
+[movies_scatter.html](d3_scale/movies_scatter.html)<br>
+
+---
+
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).

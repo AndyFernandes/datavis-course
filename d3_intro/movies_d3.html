@@ -113,7 +113,7 @@
         // Titulo Lucro
         titulo("Lucro", 3);
 
-        // // Renderização do gráfico Lucro
+        // Renderização do gráfico Lucro
         d3.json("data/movies.json").then(function(json){
             renderGrafico3(3, json, comparePorLucro, "black", 0.3);
         });
