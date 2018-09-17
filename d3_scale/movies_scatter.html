@@ -8,13 +8,28 @@
 
 <body>
 <div id="chart"></div>
+<h1> Análise do gráfico  </h1>
+<hr>
+<b>1. Existe correlação entre as variáveis?</b>
+<br>
+<p>Pelo menos a olho nu não é possível detectar nenhuma relação clara entre o <b>orçamento</b> e <b>bilheteria</b>, pois há filmes que tiveram grande investimento mas não houve tanta bilheteria (Pirates of the Caribbean).</p>
+<hr>
+<b>2. Existem outliers?</b>
+<br>
+<p>Sim, como é possível ver o outlier mais discrepante é o filme <b>Avatar</b> que teve uma alta bilheteria com "pouco" investimento.</p>
+<hr>
+<b>3. Quais são?</b>
+<hr>
+<p><b>Avatar</b> que teve uma alta bilheteria com "pouco" investimento.</p>
+
+
 <script type="text/javascript">
     
     function render(dataset) {
-    	let margin = {top: 70, right: 70, bottom: 70, left: 70};
+    	let margin = {top: 100, right: 250, bottom: 120, left: 120};
     
-	    let w = 1200 - margin.left - margin.right;
-	    let h = 1200 - margin.top - margin.bottom;
+	    let w = 1000 - margin.left - margin.right;
+	    let h = 800 - margin.top - margin.bottom;
 
 	    let svg = d3.select("#chart")
 	            .append("svg")
@@ -26,23 +41,23 @@
 
     	let xScale = d3.scaleLinear()
                     .domain([0, d3.max(dataset, function(d){
-                                return d.Worldwide_Gross_M;
+                                return d.Budget_M;
                     })])
                     .range([0,w]);
     
     	let yScale = d3.scaleLinear()
                     .domain([0,d3.max(dataset, function(d){
-                                return d.Budget_M;
+                                return d.Worldwide_Gross_M;
                     })])
                     .range([h,0]); 
 
     	let xAxis = d3.axisBottom()
                     .scale(xScale);   
-                    .ticks(5);
+                
 
     	let yAxis = d3.axisLeft()
                     .scale(yScale);  
-                    .ticks(5);
+
         
         // Depois adicione os elementos círculos
         svg.selectAll("circle")
@@ -50,10 +65,10 @@
         .enter()
         .append("circle")
         .attr("cx", function(d){
-            return xScale(d.Worldwide_Gross_M);
+            return xScale(d.Budget_M);
         })
         .attr("cy", function(d){
-            return yScale(d.Budget_M);
+            return yScale(d.Worldwide_Gross_M );
         })
         .attr("r", 5);
         
@@ -63,14 +78,14 @@
         .enter()
         .append("text")
         .attr("x", function(d){
-            return xScale(d.Worldwide_Gross_M);
+            return xScale(d.Budget_M );
         })
         .attr("y", function(d){
-            return yScale(d.Budget_M);
+            return yScale(d.Worldwide_Gross_M);
         })
         .attr("font-family", "sans-serif")
-        .attr("font-size", "11px")
-        .attr("fill", "green")
+        .attr("font-size", "12px")
+        .attr("fill", "lightblue")
         .text(function(d){
             return d.Film;
         });
@@ -88,7 +103,7 @@
         	.style("text-anchor", "middle")
         	.attr("font-family", "sans-serif")
         	.attr("font-size", "12px")
-        	.text("Worldwide_Gross_M");        
+        	.text("Budget_M");        
 
     	svg.append("text")
         	.attr("transform", "rotate(-90)")
@@ -98,15 +113,12 @@
         	.style("text-anchor", "middle")
         	.attr("font-family", "sans-serif")
         	.attr("font-size", "12px")
-        	.text("Budget_M"); 
+        	.text("Worldwide_Gross_M "); 
         }
         
         d3.json("data/movies.json").then(function(json){ 
             render(json);
         });
-     
-    
-
      
 </script>
 </body>

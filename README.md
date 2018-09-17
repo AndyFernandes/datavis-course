@@ -28,6 +28,8 @@
 [08_sort_data.html](d3_intro/08_sort_data.html)<br>
 [data_array_solution.html](d3_intro/data_array_solution.html)<br>
 [data_object_solution.html](d3_intro/data_object_solution.html)<br>
+
+#### Exercício:
 [movies_d3.html](d3_intro/movies_d3.html)<br>
 
 ---
@@ -36,6 +38,8 @@
 
 [01_scatterplot.html](d3_scale/01_scatterplot.html)<br>
 [02_margin_scatterplot.html](d3_scale/02_margin_scatterplot.html)<br>
+
+#### Exercício:
 [movies_scatter.html](d3_scale/movies_scatter.html)<br>
 
 ---
