@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Criando um crossfilter</title>
+    <script src="js/crossfilter.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+</head>
+<body>
+    <script type="text/javascript">
+        d3.csv("data/stocks.csv").then(function(data){
+            // formatando nossos dados
+            let parseDate = d3.timeParse("%Y/%m/%d");
+            data.forEach(function(d){
+                d.date = parseDate(d.date);
+                d.tesla = +d.tesla;
+                d.facebook = +d.facebook;
+            });
+
+            //criando um crossfilter
+            let facts = crossfilter(data);
+            
+            let dateDim = facts.dimension(function(d){
+                return d.date;
+            });
+
+            let teslaDim = facts.dimension(function(d){
+                return d.tesla;
+            });
+
+            let topTenTesla = teslaDim.top(10);
+            let bottomTenTesla = teslaDim.botton(10);
+
+            let teslaByDayGroup = dateDim.group().reduceSum(function(d){
+                return d.tesla;
+            })
+            console.log(topTenTesla);
+            // console.log(bottomTenTesla);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            // let dateMonthDim = facts.dimension(function(d){
+            //     return d.date.getMonth();
+            // });
+
+            // dateMonthDim.filter([11]); // filtrando os meses 
+
+            // teslaDim.filter(function(d){ // usando funções nos filtros
+            //     return d > 100;
+            // });
+
+            // console.log(facts.all()); //all() retorna todos os registros brutos
+        });
+    </script>           
+</body>
+</html>
