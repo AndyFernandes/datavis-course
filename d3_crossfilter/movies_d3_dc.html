@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>Bilheteria dos Filmes</title>
+    <link rel="stylesheet" href="css/dc.min.css">
+    <link rel="stylesheet" href="css/styles.css">
+    <script src="js/crossfilter.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+    <script src="js/dc.min.js"></script>
+
+</head>
+<body>
+     <div><h1>Bilheteria dos filmes por ano</h1>
+        <div id="chart1"></div>
+     <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+     <div><h1>Bilheteria dos filmes por gênero</h1>
+        <div id="chart2"></div>
+    </div>
+    <script type="text/javascript">
+        // grafico de barra Bilheteria por Ano
+        let barChartBilheteriaAno = dc.barChart('#chart1');
+
+        // grafico de barra Bilheteria por Genero
+        let barChartBilheteriaGenero = dc.barChart('#chart2');
+
+        d3.json("data/movies.json").then(function(data){
+            //formatando nossos dados
+            let parseDate = d3.timeParse("%Y/%m/%d");
+            data.forEach(function(d){
+                d.Year = +d.Year;
+                d.Worldwide_Gross_M = +d.Worldwide_Gross_M;
+                d.Budget_M = +d.Budget_M;
+            });
+
+            //criando um crossfilter
+            let facts = crossfilter(data);
+
+            let dateDim = facts.dimension(function(d){
+                return +d.Year;
+            });
+
+            // criando a dimensão por genero
+            let generoDim = facts.dimension(function(d){
+                return d.Genre;
+            });
+
+            // criando o grupo de bilheteria por anor
+            let bilheteriasByYearGroup = dateDim.group().reduceSum(function(d){
+                return d.Worldwide_Gross_M;
+            });
+
+            // criando o grupo de bilheteria por genero
+            let bilheteriasByGenreGroup = generoDim.group().reduceSum(function(d){
+                return d.Worldwide_Gross_M;
+            });
+
+            barChartBilheteriaAno 
+                .width(800)
+                .height(400)
+                .margins({top: 50, right: 50, bottom: 25, left: 40})
+                
+                .brushOn(false)
+                .xUnits(dc.units.ordinal)
+                
+                .x(d3.scaleBand())
+                .xAxisLabel("Year")
+                .yAxisLabel("Worldwide Gross M")
+                
+                .dimension(dateDim)
+                .group(bilheteriasByYearGroup)
+                
+                .barPadding(0.4)
+                .on('renderlet', function(barChartBilheteriaAno){
+                    barChartBilheteriaAno.selectAll('rect').on('click', function(d){
+                        console.log('click!', d);
+                    });
+                });
+
+            barChartBilheteriaGenero 
+                .width(800)
+                .height(400)
+                .margins({top: 50, right: 50, bottom: 25, left: 40})
+
+                .x(d3.scaleBand())
+                .xUnits(dc.units.ordinal)
+                .xAxisLabel("Genre")
+                .yAxisLabel("Worldwide Gross M")
+
+                .dimension(generoDim)
+                .group(bilheteriasByGenreGroup)
+
+                .barPadding(0.3)
+                .on('renderlet', function(barChartBilheteriaAno){
+                    barChartBilheteriaAno.selectAll('rect').on('click', function(d){
+                        console.log('click!', d);
+                    });
+                });
+
+            dc.renderAll();
+
+        });
+    </script>           
+</body>
+</html>

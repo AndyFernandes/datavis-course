@@ -48,5 +48,20 @@
 
 [01_scatterplot.html](d3_update/01_scatterplot.html)<br>
 
+---
+
+## Aula 14
+
+[index1.html](d3_crossfilter/index1.html)<br>
+[index2.html](d3_crossfilter/index2.html)<br>
+[index3.html](d3_crossfilter/index3.html)<br>
+[index4.html](d3_crossfilter/index4.html)<br>
+[index5.html](d3_crossfilter/index5.html)<br>
+
+#### Exercício:
+[QUESTAO 01 - acoes.html](d3_crossfilter/acoes.html)<br>
+[QUESTAO 02 - movies.html](d3_crossfilter/movies.html)<br>
+
+
 
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
