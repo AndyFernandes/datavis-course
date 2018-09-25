@@ -60,7 +60,7 @@
 
 #### Exercício:
 [QUESTAO 01 - acoes.html](d3_crossfilter/acoes.html)<br>
-[QUESTAO 02 - movies.html](d3_crossfilter/movies.html)<br>
+[QUESTAO 02 - movies_d3_dc.html](d3_crossfilter/movies_d3_dc.html)<br>
 
 
 
