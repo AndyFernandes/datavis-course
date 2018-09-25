@@ -70,12 +70,12 @@
                 .dimension(dateDim)
                 .group(bilheteriasByYearGroup)
                 
-                .barPadding(0.4)
-                .on('renderlet', function(barChartBilheteriaAno){
-                    barChartBilheteriaAno.selectAll('rect').on('click', function(d){
-                        console.log('click!', d);
-                    });
-                });
+                .barPadding(0.4);
+                // .on('renderlet', function(barChartBilheteriaAno){
+                //     barChartBilheteriaAno.selectAll('rect').on('click', function(d){
+                //         console.log('click!', d);
+                //     });
+                // });
 
             barChartBilheteriaGenero 
                 .width(800)
@@ -90,12 +90,12 @@
                 .dimension(generoDim)
                 .group(bilheteriasByGenreGroup)
 
-                .barPadding(0.3)
-                .on('renderlet', function(barChartBilheteriaAno){
-                    barChartBilheteriaAno.selectAll('rect').on('click', function(d){
-                        console.log('click!', d);
-                    });
-                });
+                .barPadding(0.3);
+                // .on('renderlet', function(barChartBilheteriaAno){
+                //     barChartBilheteriaAno.selectAll('rect').on('click', function(d){
+                //         console.log('click!', d);
+                //     });
+                // });
 
             dc.renderAll();
 
