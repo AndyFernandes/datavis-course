@@ -50,30 +50,59 @@
 	let chart2 = dc.barChart('#chart1');
 	let chart3 = dc.lineChart('#chart1');
 	let chart4 = dc.dataTable('#dc-table-graph');
+
+	let parseFloat = d3.format(".1f");
+	let parseInt = d3.format("d");
 	
 	// load data from a csv file
 	d3.csv("data/earthquakes.csv").then(function (data) {
 	  // format our data
         data.forEach(function(d){
                 d.dtg = d3.utcParse(d.origintime.substr(0,19));
-                d.magnitude = d3.format(".1f")
+                d.magnitude = parseFloat(d.magnitude);
+                d.depth = parseInt(d.depth);
+                d.latitude = +d.latitude;
+                d.longitude = +d.longitude;
             });
 	  
-
 	  // Run the data through crossfilter and load our 'facts'
-	 
+	 let facts = crossfilter(data);
+
+	 // Passo 3 - dimensão dateDimension
+	 let dateDimension = facts.dimension(function(d){
+                return d.dtg;
+            });
+
+	 // Passo 3 - modificando os atributos da variável globla da tabela
+
+	 chart4.width(960)
+            .height(800)
+            .dimension(dateDimension)
+            .group(function(d){ return "Earthquake Table";})
+            .size(10)
+            .columns(['dtg', 'magnitude', 'depth', 'latitude', 'longitude'])
+            .sortBy(function(d){ return d.dtg;})
+            .order(d3.ascending);
 
 	  //Create a dimension for Magnitude
-	  
+	  let magnitudeDim = facts.dimension(function(d){
+                return d.magnitude;
+            });
+
 	  //Create a group for Magnitude that just counts the number of elements in the group
-	  
+	  let magnitudeGroup = magnitudeDim.group().reduceSum(function(d){
+                return d.magnitude;
+            });
 
 	  // Create a dimension for Depth
-	 
+	 let depthDim = facts.dimension(function(d){
+                return d.depth;
+            });
 
 	  //Create a group for Depth that just counts the number of elements in the group
-	  
-
+	  let depthGroup = depthDim.group().reduceSum(function(d){
+                return d.depth;
+            });
 
 	  // Create a dimension just for the hour from the datetime in the dataset
 	  //hint: use d3.time.hour() function
