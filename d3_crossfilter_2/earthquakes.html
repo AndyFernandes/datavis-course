@@ -59,8 +59,8 @@
 	  // format our data
         data.forEach(function(d){
                 d.dtg = d3.utcParse(d.origintime.substr(0,19));
-                d.magnitude = parseFloat(d.magnitude);
-                d.depth = parseInt(d.depth);
+                d.magnitude = parseFloat(+d.magnitude);
+                d.depth = parseInt(+d.depth);
                 d.latitude = +d.latitude;
                 d.longitude = +d.longitude;
             });
@@ -140,13 +140,12 @@
 
 	 chart4.width(960)
             .height(800)
-            .dimension(dateDimension)
+            .dimension(dateDim)
             .group(function(d){ return "Earthquake Table";})
             .size(10)
             .columns(['dtg', 'magnitude', 'depth', 'latitude', 'longitude'])
             .sortBy(function(d){ return d.dtg;})
             .order(d3.ascending);
-
 
 	  // Render the Charts
 	  dc.renderAll();
