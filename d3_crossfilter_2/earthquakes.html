@@ -69,7 +69,7 @@
 	 let facts = crossfilter(data);
 
 	 // Passo 3 - dimensão dateDimension
-	 let dateDimension = facts.dimension(function(d){
+	 let dateDim = facts.dimension(function(d){
                 return d.dtg;
             });
 
@@ -79,9 +79,7 @@
             });
 
 	  //Create a group for Magnitude that just counts the number of elements in the group
-	  let magnitudeGroup = magnitudeDim.group().reduceSum(function(d){
-                return d.magnitude;
-            });
+	  let magnitudeGroup = magnitudeDim.group();
 
 	  // Create a dimension for Depth
 	 let depthDim = facts.dimension(function(d){
@@ -89,9 +87,7 @@
             });
 
 	  //Create a group for Depth that just counts the number of elements in the group
-	  let depthGroup = depthDim.group().reduceSum(function(d){
-                return d.depth;
-            });
+	  let depthGroup = depthDim.group();
 
 	  // Create a dimension just for the hour from the datetime in the dataset
 	  //hint: use d3.time.hour() function
@@ -102,6 +98,7 @@
 	  
 	  //Create a group for the hour dimension that just counts the number of elements per hour
 	  let hourGroup = hourDim.group();
+	  
 	  // Setup the charts
 
 	  // Configure Magnitude Bar Graph
@@ -111,7 +108,6 @@
 	  //set elasticY to true
 	  chart1.width(480)
 	  		.height(150)
-	  		.dimension()
 	  		.x(d3.scaleLinear().domain([0.5, 8]))
 	  		.dimension(magnitudeDim)
 	  		.group(magnitudeGroup)
@@ -123,7 +119,6 @@
 	  // x dimension domain: [0, 100]
 	 chart2.width(480)
 	  		.height(150)
-	  		.dimension()
 	  		.x(d3.scaleLinear().domain([0, 100]))
 	  		.dimension(depthDim)
 	  		.group(depthGroup)
@@ -137,6 +132,7 @@
 	  		.height(150)
 	  		.dimension(hourDim)
 	  		.group(hourGroup)
+	  		.xUnits(d3.timeDays)
 	  		.x(d3.time.scaleTime().domain([hourDim(1)[0].dtg, hourDim.top(1)[0].dtg]))
 	  		.elasticY(true);
 
