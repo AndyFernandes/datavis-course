@@ -46,9 +46,9 @@
   </main>
   <script type="text/javascript">
 	// Create the dc.js chart objects & link to div
-	let chart1 = dc.barChart('#chart1');
-	let chart2 = dc.barChart('#chart1');
-	let chart3 = dc.lineChart('#chart1');
+	let chart1 = dc.barChart('#magnitude-chart');
+	let chart2 = dc.barChart('#depth-chart');
+	let chart3 = dc.lineChart('#time-chart');
 	let chart4 = dc.dataTable('#dc-table-graph');
 
 	let parseFloat = d3.format(".1f");
@@ -73,17 +73,6 @@
                 return d.dtg;
             });
 
-	 // Passo 3 - modificando os atributos da variável globla da tabela
-
-	 chart4.width(960)
-            .height(800)
-            .dimension(dateDimension)
-            .group(function(d){ return "Earthquake Table";})
-            .size(10)
-            .columns(['dtg', 'magnitude', 'depth', 'latitude', 'longitude'])
-            .sortBy(function(d){ return d.dtg;})
-            .order(d3.ascending);
-
 	  //Create a dimension for Magnitude
 	  let magnitudeDim = facts.dimension(function(d){
                 return d.magnitude;
@@ -107,9 +96,12 @@
 	  // Create a dimension just for the hour from the datetime in the dataset
 	  //hint: use d3.time.hour() function
 
-
+	  let hourDim = facts.dimension(function(d){
+	  	return d3.timeHour(d.dtg);
+	  });
+	  
 	  //Create a group for the hour dimension that just counts the number of elements per hour
-
+	  let hourGroup = hourDim.group();
 	  // Setup the charts
 
 	  // Configure Magnitude Bar Graph
@@ -117,15 +109,48 @@
 	  // x dimension domain: [0.5, 8]
 	  //use a gap of 65, this number is very obscure. It seems to depend on the width of the chart and on the number of dimensions. It was found using trial and error.
 	  //set elasticY to true
+	  chart1.width(480)
+	  		.height(150)
+	  		.dimension()
+	  		.x(d3.scaleLinear().domain([0.5, 8]))
+	  		.dimension(magnitudeDim)
+	  		.group(magnitudeGroup)
+	  		.gap(65)
+	  		.elasticY(true);
 	  	
-
 	  // Configure Depth bar graph
 	  // 480 x 150
 	  // x dimension domain: [0, 100]
-	 
+	 chart2.width(480)
+	  		.height(150)
+	  		.dimension()
+	  		.x(d3.scaleLinear().domain([0, 100]))
+	  		.dimension(depthDim)
+	  		.group(depthGroup)
+	  		.gap(65)
+	  		.elasticY(true);
+
 	  // Configure Time line graph
 	  // height: 150
 	  //x dimension: build the time scale from the data: d3.time.scale().domain(d3.extent(data, function(d) { return d.dtime; }))
+	  chart3.width(500)
+	  		.height(150)
+	  		.dimension(hourDim)
+	  		.group(hourGroup)
+	  		.x(d3.time.scaleTime().domain([hourDim(1)[0].dtg, hourDim.top(1)[0].dtg]))
+	  		.elasticY(true);
+
+	  // Passo 3 - modificando os atributos da variável globla da tabela
+
+	 chart4.width(960)
+            .height(800)
+            .dimension(dateDimension)
+            .group(function(d){ return "Earthquake Table";})
+            .size(10)
+            .columns(['dtg', 'magnitude', 'depth', 'latitude', 'longitude'])
+            .sortBy(function(d){ return d.dtg;})
+            .order(d3.ascending);
+
 
 	  // Render the Charts
 	  dc.renderAll();
