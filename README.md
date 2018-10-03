@@ -1,5 +1,9 @@
 # datavis-course
  Repository dedicated to discipline Data Visualization of Computer Science course.
+ Andreza Fernandes de Oliveira
+ 384341
+
+ ---
 
 ## Aula do dia 03/09/2018
 
@@ -62,6 +66,9 @@
 [QUESTAO 01 - acoes.html](d3_crossfilter/acoes.html)<br>
 [QUESTAO 02 - movies_d3_dc.html](d3_crossfilter/movies_d3_dc.html)<br>
 
+---
 
+## Aula 15 (EAD)
+[earthquakes.html](d3_crossfilter_2/earthquakes.html)<br>
 
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).

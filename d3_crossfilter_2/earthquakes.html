@@ -51,6 +51,7 @@
 	let chart3 = dc.lineChart('#time-chart');
 	let chart4 = dc.dataTable('#dc-table-graph');
 
+	let parseDate = d3.timeParse("%Y-%m-%dT%H:%M:%S");
 	let parseFloat = d3.format(".1f");
 	let parseInt = d3.format("d");
 	
@@ -58,7 +59,7 @@
 	d3.csv("data/earthquakes.csv").then(function (data) {
 	  // format our data
         data.forEach(function(d){
-                d.dtg = d3.utcParse(d.origintime.substr(0,19));
+                d.dtg = parseDate(d.origintime.substr(0,19));
                 d.magnitude = parseFloat(+d.magnitude);
                 d.depth = parseInt(+d.depth);
                 d.latitude = +d.latitude;
@@ -125,18 +126,18 @@
 	  		.gap(65)
 	  		.elasticY(true);
 
-	  // Configure Time line graph
-	  // height: 150
-	  //x dimension: build the time scale from the data: d3.time.scale().domain(d3.extent(data, function(d) { return d.dtime; }))
-	  chart3.width(500)
+	 //  // Configure Time line graph
+	 //  // height: 150
+	 //  //x dimension: build the time scale from the data: d3.time.scale().domain(d3.extent(data, function(d) { return d.dtime; }))
+	  chart3.width(960)
 	  		.height(150)
 	  		.dimension(hourDim)
 	  		.group(hourGroup)
 	  		.xUnits(d3.timeDays)
-	  		.x(d3.time.scaleTime().domain([hourDim(1)[0].dtg, hourDim.top(1)[0].dtg]))
+	  		.x(d3.scaleTime().domain([hourDim.bottom(1)[0].dtg, hourDim.top(1)[0].dtg]))
 	  		.elasticY(true);
 
-	  // Passo 3 - modificando os atributos da variável globla da tabela
+	 //  // Passo 3 - modificando os atributos da variável globla da tabela
 
 	 chart4.width(960)
             .height(800)
