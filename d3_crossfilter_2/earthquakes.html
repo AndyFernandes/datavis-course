@@ -9,6 +9,13 @@
 
     <title> Earthquake Data</title>
 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.4/dist/leaflet.css"
+	integrity="sha512-puBpdR0798OZvTTbP4A8Ix/l+A4dHDD0DGqYW6RQ+9jxkRFclaxxQb/SJAWZfWAkuyeQUytO7+7N4QKrDh+drA=="
+	crossorigin=""/>
+	<!-- Make sure you put this AFTER Leaflet's CSS -->
+	<script src="https://unpkg.com/leaflet@1.3.4/dist/leaflet.js"
+	integrity="sha512-nMMmRyTVoLYqjP9hrbed9S+FzjZHW5gY1TWCHA5ckwXZBadntCNs8kEqAWdrb9O7rxbCaA4lKTIWjDXZxflOcA=="
+	crossorigin=""></script>
     <!-- Custom styles for this template -->
 	<link rel="stylesheet" href="css/dc.min.css">
     <link rel="stylesheet" href="css/styles.css">
@@ -19,13 +26,19 @@
 <body>
   <main role="main" class="container">
     <div class='row'>
-	    <div id='magnitude-chart' class="col-6">
+    	<div id="mapid" class="col-6">
+    	</div>
+	    <div class= "col-6">
+	    <div id='magnitude-chart'>
 	      <h4> Number of Events by Magnitude </h4>
 	    </div>
+	    
 	    <div id='depth-chart' class="col-6">
 		  <h4> Events by Depth (km) </h4>
-	    </div>   
+	    </div>
+	   </div>   
     </div>
+
     <div class='row'>
       <div id='time-chart' class="single-col">
          <h4> Events per hour </h4>
@@ -51,6 +64,8 @@
 	let chart3 = dc.lineChart('#time-chart');
 	let chart4 = dc.dataTable('#dc-table-graph');
 
+	let map = L.map('mapid').setView([-41.05,172.93], 5); 
+	L.tileLayer('http://{s}.tile.osm.org/{z}/{x}/{y}.png', {attribution: '&copy; <a href="http://www.openstreetmap.org/">OpenStreetMap</a> contributors', maxZoom: 17}).addTo(map);
 	let parseDate = d3.timeParse("%Y-%m-%dT%H:%M:%S");
 	let parseFloat = d3.format(".1f");
 	let parseInt = d3.format("d");
@@ -64,6 +79,15 @@
                 d.depth = parseInt(+d.depth);
                 d.latitude = +d.latitude;
                 d.longitude = +d.longitude;
+
+                let circle = L.circle([d.latitude, d.longitude], 5000*d.magnitude, {
+			     	color: '#fd8d3c',
+					weight: 2,
+					fillColor: '#fecc5c',
+					fillOpacity: 0.5
+					}).addTo(map);
+
+                circle.bindPopup("<b>Magnitude:</b> " + d.magnitude + "<br> <b>Tempo:</b> " + d.dtg);
             });
 	  
 	  // Run the data through crossfilter and load our 'facts'
@@ -147,6 +171,7 @@
             .columns(['dtg', 'magnitude', 'depth', 'latitude', 'longitude'])
             .sortBy(function(d){ return d.dtg;})
             .order(d3.ascending);
+
 
 	  // Render the Charts
 	  dc.renderAll();

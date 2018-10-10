@@ -71,4 +71,9 @@
 ## Aula 15 (EAD)
 [earthquakes.html](d3_crossfilter_2/earthquakes.html)<br>
 
+---
+
+## Aula 17 
+[chicago.html](d3_crossfilter_2/chicago.html)<br>
+
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
