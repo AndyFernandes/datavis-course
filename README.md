@@ -76,4 +76,10 @@
 ## Aula 17 
 [chicago.html](d3_crossfilter_2/chicago.html)<br>
 
+---
+
+## Aula 19
+[songs.html](d3_networks_trees/songs.html)<br>
+[lemiserables.html](d3_networks_trees/lemiresables.html)<br>
+
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
