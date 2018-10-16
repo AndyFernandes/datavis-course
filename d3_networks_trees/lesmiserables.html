@@ -37,11 +37,20 @@
                     .attr("viewBox", [-width / 2, -height / 2, width, height]);
 
         // Read the contents of data/songs.json file and process it as a graph variable
-          d3.json("data/lemiserables.json").then(function(graph){
+          d3.json("data/lesmiserables.json").then(function(graph){
               // Set the nodes and links
               const nodes = graph.nodes;
               const links = graph.links;
-
+              console.log(nodes);
+              function contadorConexoes(nodes){
+                var tamanho = 0;
+                                links.forEach(function(link){
+                                  if(nodes.id == link.source.id || nodes.id == link.target.id){
+                                    tamanho++;
+                                  }
+                                })
+                                return tamanho;
+              }
               // create simulation constant using the forceSimulation function defined down below
               const simulation = forceSimulation(nodes, links).on("tick", ticked);
 
@@ -51,27 +60,27 @@
                               .data(links)
                               .enter()
                               .append("line")
+                              .attr("fill", "#1BA9FF")
                               .attr("class", "link");
              // create node svg elements
-            /*let sqrtScale = d3.scaleSqrt().domain(d3.extent(nodes, function(d){
-                          return d.playcount;
-                      })).range([2, 20]);*/
+            let sqrtScale = d3.scaleSqrt().domain([0,50]).range([2,20]);
 
             const node = svg.append("g")
                               .selectAll("circle")
                               .data(nodes)
                               .enter()
                               .append("circle")
+                              .attr("fill", "#FF530D")
                               .attr("class", "node")
-                              .attr("r", function(d){
-                                return 10;
+                              .attr("r", function(nodes){
+                                return sqrtScale(contadorConexoes(nodes));
                               })
                               .call(drag(simulation));
             
-            /*node.append("title")
+            node.append("title")
                 .text(function (d) {
-                   return d.artist +': ' + d.name;
-            });*/
+                   return d.id +': ' + contadorConexoes(d);
+            });
 
             // define function ticked
             function ticked() {
