@@ -80,6 +80,6 @@
 
 ## Aula 19
 [songs.html](d3_networks_trees/songs.html)<br>
-[lemiserables.html](d3_networks_trees/lemiresables.html)<br>
+[lesmiserables.html](d3_networks_trees/lesmiresables.html)<br>
 
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
