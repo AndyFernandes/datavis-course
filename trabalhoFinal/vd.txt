@@ -1,0 +1,76 @@
+1. Historinha
+Há pesquisadores que demarcam 1603 como o ano da primeira seca registrada no Ceará, depois da “chegada do branco”. 
+A memória histórica conta que a seca, além dos índios, fez o português Pero Coelho de Souza desistir da colonização local.
+<<< Botar uma imagem (?) >>>
+
+As chuvas acumuladas entre 1º de fevereiro e 31 de maio, no Ceará, têm uma média histórica de precipitações de 607,5 milímetros
+Este parâmetro considera os últimos 30 anos, e o intervalo de tempo (quatro meses) delimitado é o período de estação (ou quadra) chuvosa do Estado. 
+
+Seca ou inverno - As observações ao longo do tempo resultaram em um critério matemático usado pela Funceme para classificar a estação chuvosa no Ceará. 
+Os anos secos ocorrem quando as precipitações pluviométricas, entre fevereiro e maio, não ultrapassam 493,2 milímetros;
+ de 493,3 a 631,2 milímetros, temos anos normais; 
+ e acima dos 631,3 milímetros são estações acima da média (anos chuvosos).
+
+<<<<< MOSTRAR AQUI UM GRAFICO DE LINHAS C/ A PRECIPITAÇÃO>>>>>>
+Fonte: As informações são da Fundação Cearense de Meteorologia e Recursos Hídricos (Funceme)
+
+Quadra invernosa - A Funceme observa ainda que 75% das chuvas do ano se concentram na quadra chuvosa: 
+	“Ou seja, a quantidade de chuva entre fevereiro e maio é bastante importante para o resultado da safra e para o gerenciamento de recursos hídricos”. 
+	A previsão climática realizada no fim de janeiro, explica o órgão, é tida como “a mais importante do ano, pois vai nos dar uma ideia de como será o período chuvoso”.
+<<<<<< MOSTRAR AQUI UM GRÁFICO (BARRA (?)) mostrando a correlação da agronomia/economia c/ as chuvas nesse período de tempo >>>>>>>>
+
+A estiagem se relaciona “à redução das precipitações pluviométricas, ao atraso dos períodos chuvosos ou à ausência de chuvas previstas para uma determinada temporada, em que a perda do solo é superior à sua reposição”.
+A estiagem, completa o estudo, existe “quando há um atraso superior a quinze dias do início da temporada chuvosa”
+
+A seca diz da intensidade, durabilidade e extensão dessas ocorrências. 
+
+fonte: (div pequena) Definições foram extraídas do Atlas Brasileiro de Desastres Naturais 1991 a 2010 – Volume Ceará, elaborado pela Secretaria Nacional de Defesa Civil e Centro Universitário de Estudos e Pesquisas sobre Desastres da Universidade Federal de Santa Catarina. A publicação, de 2011, está disponível no site do Ministério da Integração Nacional (www.integracao.gov.br).
+
+O Atlas mapeou 20 anos de secas e estiagens que atingiram o Ceará, de 1991 a 2010. O recorte também se insere nos arquivos da Funceme, que forneceu ao O POVO a cronologia das secas no Estado a partir de 1950. Mas, de acordo com cronistas de outras épocas, secas e estiagens são sentidas pelos cearenses e pelo semiárido desde o século XVII. 
+
+Os dados estão dispersos em órgãos como o Departamento Nacional de Obras contra as Secas (Dnocs), em banco de dados de jornais como O POVO e na literatura local (como o livro O Quinze, de Rachel de Queiroz, que retrata a seca de 1915).
+
+<<<<<< INSERIR INFORMAÇÃO AQUI SOBRE O MOVIMENTO MIGRATÓRIO ENTRE OS MUNICIPIOS + Mapa animado com essas transições >>>>>>>>
+
+RÉGUA DAS CHUVAS
+Abaixo, a cronologia mais precisa da Funceme (com os milímetros de precipitações pluviométricas registrados na quadra chuvosa) que indicam os anos de seca. A partir da década de 1950:
+1951 – 297,28 milímetros
+1953 – 390,97 milímetros
+1954 – 483,08 milímetros
+1958 – 206,87 milímetros
+1966 – 456,44 milímetros
+1970 – 370,31 milímetros
+1972 – 430,88 milímetros
+1979 – 428,89 milímetros
+1981 – 488,54 milímetros
+1982 – 477,81 milímetros
+1983 – 307,87 milímetros
+1990 – 426,84 milímetros
+1992 – 444,14 milímetros
+1993 – 289,31 milímetros
+1998 – 241,5 milímetros
+2001 – 442,86 milímetros
+2005 – 444,93 milímetros
+2010 – 302,27 milímetros
+2012 – 302,47 milímetros
+2013 – 376,79 milímetros
+<<<<< MOSTRAR O GRÁFICO DE ((MAPA)) PARA VER O IMPACTO EM CADA MUNICIPIO EM CADA ANO >>>>>
+<<<<< DEIXAR A CAIXINHA DE SELEÇÃO DE ANO DISPONÍVEL >>>>>
+
+<<<< MOSTRAR OS MAPAS CORRELACIONADOS A CADA MUNICIPIO/REGIAO quanto 
+- distribuição de chuvas nos meses
+- economia
+- abastecimento das fontes hidrográficas
+- idh 
+
+>>>>>
+
+	a. Histórico de Secas
+		- Economia das cidades 
+			- Depende fortemente da vegetação, clima 
+		- Fenômeno de migração 
+		- Fenômeno de desertificação
+			- Mostrar temperatura, clima, vegetação
+		- Mortalidades (IDH - Censo, )
+			Fonte: https://cidades.ibge.gov.br/brasil/ce/pesquisa/39/30279?ano=2012
+		- Medição dos principais postos de abastecimento
