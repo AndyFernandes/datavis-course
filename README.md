@@ -82,4 +82,10 @@
 [songs.html](d3_networks_trees/songs.html)<br>
 [lesmiserables.html](d3_networks_trees/lesmiserables.html)<br>
 
+---
+
+## Aula 21
+[usa.html](color-d3/usa.html)<br>
+[crimes.html](color-d3/crimes.html)<br>
+
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
