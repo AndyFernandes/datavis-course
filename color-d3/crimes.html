@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<title>Número de homicídios em Fortaleza em 2012</title>
+	<title>Taxa de homicídios em Fortaleza em 2012</title>
 	<meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
@@ -52,12 +52,12 @@
 <body>
 
 <div class="container">
-	<h1> Número de Homicídios em Fortaleza em 2012</h1>
+	<h1> Taxa de Homicídios em Fortaleza em 2012</h1>
 	<p>
 		Dados retirados do site da <a href="http://www.sspds.ce.gov.br/">SSPDS</a>.
 	</p>	
     <div id="map">
-		<strong>Homicídios por Bairro</strong>
+		<strong>Taxa de Homicídios por Bairro</strong>
     </div>
 </div>
 <script type="text/javascript" src="data/bairros.js"></script>
@@ -82,16 +82,20 @@
 	// Eu vou ter que mexer aqui, pra plotar 
 	info.update = function (feat) {
             //console.log(feat);
-			this._div.innerHTML = '<h5>Número de homicídios</h5>' +  (feat ?
-				'<b>' + feat.properties.NOME + '</b><br />' + homicidiosByName.get(feat.properties.NOME) + ' homicídios'
+            // console.log(homicidiosByName.get(feat.properties.NOME));
+            // console.log(populacao.get(feat.properties.NOME));
+            // console.log(feat['properties']);
+			this._div.innerHTML = '<h5>Taxa de homicídios</h5>' +  (feat ?
+				'<b>' + feat.properties.NOME + '</b><br />' + (homicidiosByName.get(feat.properties.NOME)/populacao.get(feat.properties.NOME) * 100000) + '% homicídios'
 				: 'Passe o mouse sobre um bairro');
+
 	};
 
 	info.addTo(map);
 	
 	// get color depending on number of cases
 	let quantize = d3.scaleQuantize()
-    .domain([0, 70])
+    .domain([0, 60])
     .range(blues);
 
 	function style(feature) {
@@ -101,7 +105,7 @@
 					color: 'white',
 					dashArray: '3',
 					fillOpacity: 0.6,
-					fillColor: quantize(homicidiosByName.get(feature.properties.NOME))
+					fillColor: quantize(homicidiosByName.get(feature.properties.NOME)/populacao.get(feature.properties.NOME) * 100000)
 				};
 	}
 	function highlightFeature(e) {
@@ -140,36 +144,41 @@
 				});
 	}
     let homicidiosByName = d3.map();
-
-    let taxaHomicidios = d3.map();
+    let populacao = d3.map();
     let promises = [
-	  d3.json("data/homicidios_2012.csv"),
-	  d3.csv("data/dados_corrigidos.csv", function(d) {
-	    taxaHomicidios.set(d.Bairro, +d.Homicidios, d["População Total"]);
-	  })
+	  	d3.csv("data/homicidios_2012.csv").then(function(data){
+	        //format data
+	        data.forEach(function(d) {
+	            homicidiosByName.set(d.Bairro,+d.Homicidios);
+	        }); 
+    	}),
+	  	d3.csv("data/dados_corrigidos.csv").then(function(data) {
+		    data.forEach(function(d){
+		    	// console.log(d["População Total"])
+		    	populacao.set(d.BAIRROS, +d["População Total"]);
+		    	console.log(d.BAIRROS);
+		    	console.log(d["População Total"]);
+		    });
+	  	})
 	]
 
-	Promise.all(promises).then(ready);
-	function ready([us]){
-		geojson = L.geojson(bairrosData, {
+	Promise.all(promises).then(function(data){
+		//bairrosData is defined in file bairros.js	
+		geojson = L.geoJson(bairrosData, {
 			style: style,
 			onEachFeature: onEachFeature
 		}).addTo(map);
-	}
+	})
 
-	d3.csv("data/homicidios_2012.csv").then(function(data){
-        //format data
-        data.forEach(function(d) {
-            homicidiosByName.set(d.Bairro,+d.Homicidios);
-        });
+	// d3.csv("data/homicidios_2012.csv").then(function(data){
 		
-		//bairrosData is defined in file bairros.js		 		
-		geojson = L.geoJson(bairrosData, {
-				style: style,
-				onEachFeature: onEachFeature
-		}).addTo(map);
+			 		
+	// 	geojson = L.geoJson(bairrosData, {
+	// 			style: style,
+	// 			onEachFeature: onEachFeature
+	// 	}).addTo(map);
 		
-	});			
+	// });				
 	
 	let legend = L.control({position: 'bottomright'});
 
