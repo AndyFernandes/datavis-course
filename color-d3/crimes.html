@@ -90,7 +90,7 @@
 	
 	// get color depending on number of cases
 	let quantize = d3.scaleQuantize()
-    .domain([0, 100000])
+    .domain([0, 120])
     .range(blues);
 
 	function style(feature) {
@@ -147,10 +147,10 @@
 	            homicidiosByName.set(d.Bairro, +d.Homicidios);
 	        }); 
     	}),
-	  	d3.csv("data/dados_corrigidos.csv").then(function(data) {
+	  	d3.csv("data/population.csv").then(function(data) {
 		    data.forEach(function(d){
-		    	populacao.set(d.BAIRROS, parseInt(d["População Total"]));
-		    	console.log(parseInt(d["População Total"]));
+		    	populacao.set(d.BAIRROS, parseFloat(d["População Total"]));
+		    	console.log(Number(d["População Total"]));
 		    });
 	  	})
 	]
