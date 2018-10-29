@@ -72,7 +72,6 @@
 	// control that shows state info on hover
 	let info = L.control();
 
-
 	info.onAdd = function (map) {
 		this._div = L.DomUtil.create('div', 'info');
 		this.update();
@@ -81,10 +80,6 @@
 
 	// Eu vou ter que mexer aqui, pra plotar 
 	info.update = function (feat) {
-            //console.log(feat);
-            // console.log(homicidiosByName.get(feat.properties.NOME));
-            // console.log(populacao.get(feat.properties.NOME));
-            // console.log(feat['properties']);
 			this._div.innerHTML = '<h5>Taxa de homicídios</h5>' +  (feat ?
 				'<b>' + feat.properties.NOME + '</b><br />' + (homicidiosByName.get(feat.properties.NOME)/populacao.get(feat.properties.NOME) * 100000) + '% homicídios'
 				: 'Passe o mouse sobre um bairro');
@@ -95,7 +90,7 @@
 	
 	// get color depending on number of cases
 	let quantize = d3.scaleQuantize()
-    .domain([0, 60])
+    .domain([0, 100000])
     .range(blues);
 
 	function style(feature) {
@@ -149,15 +144,13 @@
 	  	d3.csv("data/homicidios_2012.csv").then(function(data){
 	        //format data
 	        data.forEach(function(d) {
-	            homicidiosByName.set(d.Bairro,+d.Homicidios);
+	            homicidiosByName.set(d.Bairro, +d.Homicidios);
 	        }); 
     	}),
 	  	d3.csv("data/dados_corrigidos.csv").then(function(data) {
 		    data.forEach(function(d){
-		    	// console.log(d["População Total"])
-		    	populacao.set(d.BAIRROS, +d["População Total"]);
-		    	console.log(d.BAIRROS);
-		    	console.log(d["População Total"]);
+		    	populacao.set(d.BAIRROS, parseInt(d["População Total"]));
+		    	console.log(parseInt(d["População Total"]));
 		    });
 	  	})
 	]
