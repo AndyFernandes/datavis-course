@@ -88,4 +88,10 @@
 [usa.html](color-d3/usa.html)<br>
 [crimes.html](color-d3/crimes.html)<br>
 
+---
+
+## Aula 23
+[usa.html](d3_interactive/usa.html)<br>
+[earthquakes.html](d3_interactive/earthquakes.html)<br>
+
 Para saber mais sobre a sintaxe markdown, veja [este guia](https://guides.github.com/features/mastering-markdown/).
